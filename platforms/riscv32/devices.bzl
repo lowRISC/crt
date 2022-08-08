@@ -18,6 +18,7 @@ DEVICES = [
             "ABI": "ilp32",
             "CMODEL": "medany",
             "ENDIAN": "little",
+            "[STACK_PROTECTOR]": "",
         },
     ),
 ]

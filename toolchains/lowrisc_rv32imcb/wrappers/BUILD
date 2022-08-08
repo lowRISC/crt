@@ -6,6 +6,7 @@ filegroup(
     name = "all",
     srcs = [
         "ar",
+        "clang",
         "cpp",
         "gcc",
         "gcov",

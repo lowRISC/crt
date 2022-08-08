@@ -34,10 +34,33 @@ feature(
     ],
 )
 
+feature(
+    name = "fastbuild",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Os",
+                        "-g",
+                    ],
+                ),
+            ],
+        ),
+    ],
+    provides = ["compilation_mode"],
+)
+
 feature_set(
     name = "rv32imc",
-    base = ["//features/common"],
+    base = [
+        "//features/common",
+        "//features/embedded",
+    ],
     feature = [
         ":architecture",
+        ":fastbuild",
     ],
 )
