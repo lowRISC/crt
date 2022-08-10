@@ -27,6 +27,7 @@ feature(
                         "-march=ARCHITECTURE",
                         "-mabi=ABI",
                         "-mcmodel=CMODEL",
+                        "-mENDIAN-endian",
                     ],
                 ),
             ],
@@ -53,6 +54,52 @@ feature(
     provides = ["compilation_mode"],
 )
 
+feature(
+    name = "all_warnings_as_errors",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Werror",
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
+    name = "sys_spec",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-march=ARCHITECTURE",
+                        "-mabi=ABI",
+                        "-mcmodel=CMODEL",
+                    ],
+                ),
+            ],
+        ),
+        flag_set(
+            actions = LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-lnosys",
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
 feature_set(
     name = "rv32imc",
     base = [
@@ -61,6 +108,8 @@ feature_set(
     ],
     feature = [
         ":architecture",
+        ":all_warnings_as_errors",
         ":fastbuild",
+        ":sys_spec",
     ],
 )

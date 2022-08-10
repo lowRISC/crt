@@ -68,7 +68,7 @@ feature(
 
 feature(
     name = "reproducible",
-    enabled = False,
+    enabled = True,
     flag_sets = [
         flag_set(
             actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
