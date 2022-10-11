@@ -6,6 +6,8 @@ load(
     "//config:features.bzl",
     "CPP_ALL_COMPILE_ACTIONS",
     "C_ALL_COMPILE_ACTIONS",
+    "CPP_COMPILE_NO_ASM_ACTIONS",
+    "C_COMPILE_NO_ASM_ACTIONS",
     "LD_ALL_ACTIONS",
     "feature",
     "feature_set",
@@ -52,6 +54,23 @@ feature(
         ),
     ],
     provides = ["compilation_mode"],
+)
+
+feature(
+    name = "guards",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = C_COMPILE_NO_ASM_ACTIONS + C_COMPILE_NO_ASM_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-mguards",
+                    ],
+                ),
+            ],
+        ),
+    ]
 )
 
 feature(
@@ -111,5 +130,15 @@ feature_set(
         ":all_warnings_as_errors",
         ":fastbuild",
         ":sys_spec",
+    ],
+)
+
+feature_set(
+    name = "rv32imc-hardened",
+    base = [
+        ":rv32imc",
+    ],
+    feature = [
+        ":guards",
     ],
 )

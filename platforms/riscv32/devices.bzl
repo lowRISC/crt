@@ -8,7 +8,7 @@ DEVICES = [
     device_config(
         name = "opentitan",
         architecture = "rv32imc",
-        feature_set = "//platforms/riscv32/features:rv32imc",
+        feature_set = "//platforms/riscv32/features:rv32imc-hardened",
         constraints = [
             "@platforms//cpu:riscv32",
             "@platforms//os:none",
