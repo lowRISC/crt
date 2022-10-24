@@ -4,6 +4,7 @@
 
 load("@crt//toolchains/gcc_arm_none_eabi:repository.bzl", "gcc_arm_none_eabi_repos")
 load("@crt//toolchains/lowrisc_rv32imcb:repository.bzl", "lowrisc_rv32imcb_repos")
+load("@crt//toolchains/cheri_llvm:repository.bzl", "cheri_llvm_repos")
 load("@crt//toolchains/gcc_mxe_mingw64:repository.bzl", "gcc_mxe_mingw64_repos")
 load("@crt//toolchains/cc65:repository.bzl", "cc65_repos")
 
@@ -11,6 +12,7 @@ def crt_register_toolchains(
         arm = False,
         m6502 = False,
         riscv32 = False,
+        cheri_llvm = False,
         win64 = False):
     native.register_execution_platforms("@local_config_platform//:host")
     if arm:
@@ -27,6 +29,11 @@ def crt_register_toolchains(
         lowrisc_rv32imcb_repos()
         native.register_execution_platforms("@crt//platforms/riscv32:all")
         native.register_toolchains("@crt//toolchains/lowrisc_rv32imcb:all")
+
+    if cheri_llvm:
+        cheri_llvm_repos()
+        native.register_execution_platforms("@crt//platforms/riscv32-cheri:all")
+        native.register_toolchains("@crt//toolchains/cheri_llvm:all")
 
     if win64:
         gcc_mxe_mingw64_repos()

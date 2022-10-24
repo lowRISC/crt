@@ -1,0 +1,8 @@
+package(default_visibility = ["//visibility:public"])
+
+constraint_setting(name = "extension")
+
+constraint_value(
+    name = "cheri",
+    constraint_setting = ":extension",
+)

@@ -1,0 +1,41 @@
+load("//config:compiler.bzl", "setup")
+load("//platforms/riscv32-cheri:devices.bzl", "DEVICES")
+
+package(default_visibility = ["//visibility:public"])
+
+SYSTEM_INCLUDE_PATHS = [
+    "external/cheri_llvm_files/sdk/lib/clang/13.0.0/include",
+    "external/cheri_llvm_files/sdk/baremetal/baremetal-riscv32-purecap/riscv32-unknown-elf/include/",
+]
+
+filegroup(
+    name = "compiler_components",
+    srcs = [
+        "//toolchains/cheri_llvm/wrappers:all",
+        "@cheri_llvm_files//:all",
+    ],
+)
+
+[setup(
+    name = device.name,
+    architecture = device.architecture,
+    artifact_naming = device.artifact_naming,
+    compiler_components = ":compiler_components",
+    constraints = device.constraints,
+    feature_set = device.feature_set,
+    include_directories = SYSTEM_INCLUDE_PATHS,
+    params = {
+        "compiler": "clang",
+    },
+    substitutions = device.substitutions,
+    tools = {
+        "ar":      "wrappers/ar",
+        "cpp":     "wrappers/cpp",
+        "gcc":     "wrappers/clang",
+        "ld":      "wrappers/ld",
+        "nm":      "wrappers/nm",
+        "objcopy": "wrappers/objcopy",
+        "objdump": "wrappers/objdump",
+        "strip":   "wrappers/strip",
+    },
+) for device in DEVICES]
