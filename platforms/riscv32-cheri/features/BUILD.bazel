@@ -25,7 +25,9 @@ feature(
                         "-mcmodel=CMODEL",
                         "-mENDIAN-endian",
                         "--target=riscv32-unknown-elf",
-                        "-Wl,-Lexternal/cheri_llvm_files/sdk/baremetal/baremetal-riscv32-purecap/riscv32-unknown-elf/lib/",
+                        "-mno-relax",
+                        # tell the loader where the base libraries are
+                        "-Lexternal/cheri_llvm_files/sdk/baremetal/baremetal-riscv32-purecap/riscv32-unknown-elf/lib/",
                     ],
                 ),
             ],
