@@ -1,5 +1,5 @@
 load("//config:compiler.bzl", "setup")
-load("//platforms/riscv32-cheri:devices.bzl", "DEVICES")
+load("//platforms/riscv32/cheri:devices.bzl", "DEVICES")
 
 package(default_visibility = ["//visibility:public"])
 

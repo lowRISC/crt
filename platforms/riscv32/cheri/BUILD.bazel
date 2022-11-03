@@ -6,6 +6,6 @@ platform(
     name = "riscv32-cheri",
     constraint_values = [
         "@platforms//cpu:riscv32",
-        "//platforms/riscv32-cheri/extension:cheri",
+        "//constraints/extension:cheri",
     ],
 )

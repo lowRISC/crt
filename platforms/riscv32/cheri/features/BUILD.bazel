@@ -24,10 +24,8 @@ feature(
                         "-mabi=ABI",
                         "-mcmodel=CMODEL",
                         "-mENDIAN-endian",
-                        "--target=riscv32-unknown-elf",
+                        "--target=TARGET",
                         "-mno-relax",
-                        # tell the loader where the base libraries are
-                        "-Lexternal/cheri_llvm_files/sdk/baremetal/baremetal-riscv32-purecap/riscv32-unknown-elf/lib/",
                     ],
                 ),
             ],
@@ -54,6 +52,26 @@ feature(
     provides = ["compilation_mode"],
 )
 
+feature(
+    name = "library_search_directories",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = ["[SYSTEM_LIBRARY_PATHS]"],
+                ),
+                flag_group(
+                    expand_if_available = "library_search_directories",
+                    flags = ["-L%{library_search_directories}"],
+                    iterate_over = "library_search_directories",
+                ),
+            ],
+        ),
+    ],
+)
+
 feature_set(
     name = "rv32imcxcheri",
     base = [
@@ -63,5 +81,6 @@ feature_set(
     feature = [
         ":architecture",
         ":fastbuild",
+        ":library_search_directories",
     ],
 )

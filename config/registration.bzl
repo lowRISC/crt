@@ -32,7 +32,7 @@ def crt_register_toolchains(
 
     if cheri_llvm:
         cheri_llvm_repos()
-        native.register_execution_platforms("@crt//platforms/riscv32-cheri:all")
+        native.register_execution_platforms("@crt//platforms/riscv32/cheri:all")
         native.register_toolchains("@crt//toolchains/cheri_llvm:all")
 
     if win64:
