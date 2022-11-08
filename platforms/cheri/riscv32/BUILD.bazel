@@ -1,0 +1,11 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//config:execution.bzl", "exec_config")
+
+platform(
+    name = "cheri-riscv32",
+    constraint_values = [
+        "@platforms//cpu:riscv32",
+        "//constraints/extension:cheri",
+    ],
+)

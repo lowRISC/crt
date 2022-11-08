@@ -1,0 +1,86 @@
+load(
+    "//config:features.bzl",
+    "CPP_ALL_COMPILE_ACTIONS",
+    "C_ALL_COMPILE_ACTIONS",
+    "LD_ALL_ACTIONS",
+    "feature",
+    "feature_set",
+    "flag_group",
+    "flag_set",
+)
+
+package(default_visibility = ["//visibility:public"])
+
+feature(
+    name = "architecture",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-march=ARCHITECTURE",
+                        "-mabi=ABI",
+                        "-mcmodel=CMODEL",
+                        "-mENDIAN-endian",
+                        "--target=TARGET",
+                        "-mno-relax",
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
+    name = "fastbuild",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Os",
+                        "-g",
+                    ],
+                ),
+            ],
+        ),
+    ],
+    provides = ["compilation_mode"],
+)
+
+feature(
+    name = "library_search_directories",
+    enabled = True,
+    flag_sets = [
+        flag_set(
+            actions = LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = ["[SYSTEM_LIBRARY_PATHS]"],
+                ),
+                flag_group(
+                    expand_if_available = "library_search_directories",
+                    flags = ["-L%{library_search_directories}"],
+                    iterate_over = "library_search_directories",
+                ),
+            ],
+        ),
+    ],
+)
+
+feature_set(
+    name = "rv32imcxcheri",
+    base = [
+        "//features/common",
+        "//features/embedded",
+    ],
+    feature = [
+        ":architecture",
+        ":fastbuild",
+        ":library_search_directories",
+    ],
+)
