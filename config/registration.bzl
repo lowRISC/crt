@@ -12,7 +12,7 @@ def crt_register_toolchains(
         arm = False,
         m6502 = False,
         riscv32 = False,
-        cheri_llvm = False,
+        cheri_riscv32 = False,
         win64 = False):
     native.register_execution_platforms("@local_config_platform//:host")
     if arm:
@@ -30,9 +30,9 @@ def crt_register_toolchains(
         native.register_execution_platforms("@crt//platforms/riscv32:all")
         native.register_toolchains("@crt//toolchains/lowrisc_rv32imcb:all")
 
-    if cheri_llvm:
+    if cheri_riscv32:
         cheri_llvm_repos()
-        native.register_execution_platforms("@crt//platforms/riscv32/cheri:all")
+        native.register_execution_platforms("@crt//platforms/cheri/riscv32:all")
         native.register_toolchains("@crt//toolchains/cheri_llvm:all")
 
     if win64:

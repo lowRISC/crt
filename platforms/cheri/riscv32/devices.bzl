@@ -3,9 +3,9 @@ load("//config:compiler.bzl", "listify_flags")
 
 DEVICES = [
     device_config(
-        name = "riscv32-cheri",
+        name = "cheri-riscv32",
         architecture = "rv32imcxcheri",
-        feature_set = "//platforms/riscv32/cheri/features:rv32imcxcheri",
+        feature_set = "//platforms/cheri/riscv32/features:rv32imcxcheri",
         constraints = [
             "@platforms//cpu:riscv32",
             "//constraints/extension:cheri",
