@@ -12,67 +12,72 @@ filegroup(
     srcs = glob(["**"]),
 )
 
+TARGETS = {
+    "win32": "i686-w64-mingw32.shared",
+    "win64": "x86_64-w64-mingw32.shared",
+}
+
 binaries = [
-    "x86_64-w64-mingw32.shared-addr2line",
-    "x86_64-w64-mingw32.shared-ar",
-    "x86_64-w64-mingw32.shared-as",
-    "x86_64-w64-mingw32.shared-c++",
-    "x86_64-w64-mingw32.shared-c++filt",
-    "x86_64-w64-mingw32.shared-cpp",
-    "x86_64-w64-mingw32.shared-dlltool",
-    "x86_64-w64-mingw32.shared-dllwrap",
-    "x86_64-w64-mingw32.shared-elfedit",
-    "x86_64-w64-mingw32.shared-g++",
-    "x86_64-w64-mingw32.shared-gcc",
-    "x86_64-w64-mingw32.shared-gcc-11.3.0",
-    "x86_64-w64-mingw32.shared-gcc-ar",
-    "x86_64-w64-mingw32.shared-gcc-nm",
-    "x86_64-w64-mingw32.shared-gcc-ranlib",
-    "x86_64-w64-mingw32.shared-gcov",
-    "x86_64-w64-mingw32.shared-gcov-dump",
-    "x86_64-w64-mingw32.shared-gcov-tool",
-    "x86_64-w64-mingw32.shared-gfortran",
-    "x86_64-w64-mingw32.shared-gprof",
-    "x86_64-w64-mingw32.shared-ld",
-    "x86_64-w64-mingw32.shared-ld.bfd",
-    "x86_64-w64-mingw32.shared-lto-dump",
-    "x86_64-w64-mingw32.shared-nm",
-    "x86_64-w64-mingw32.shared-objcopy",
-    "x86_64-w64-mingw32.shared-objdump",
-    "x86_64-w64-mingw32.shared-pkg-config",
-    "x86_64-w64-mingw32.shared-ranlib",
-    "x86_64-w64-mingw32.shared-readelf",
-    "x86_64-w64-mingw32.shared-size",
-    "x86_64-w64-mingw32.shared-strings",
-    "x86_64-w64-mingw32.shared-strip",
-    "x86_64-w64-mingw32.shared-windmc",
-    "x86_64-w64-mingw32.shared-windres",
+    "{prefix}-addr2line",
+    "{prefix}-ar",
+    "{prefix}-as",
+    "{prefix}-c++",
+    "{prefix}-c++filt",
+    "{prefix}-cpp",
+    "{prefix}-dlltool",
+    "{prefix}-dllwrap",
+    "{prefix}-elfedit",
+    "{prefix}-g++",
+    "{prefix}-gcc",
+    "{prefix}-gcc-11.3.0",
+    "{prefix}-gcc-ar",
+    "{prefix}-gcc-nm",
+    "{prefix}-gcc-ranlib",
+    "{prefix}-gcov",
+    "{prefix}-gcov-dump",
+    "{prefix}-gcov-tool",
+    "{prefix}-gfortran",
+    "{prefix}-gprof",
+    "{prefix}-ld",
+    "{prefix}-ld.bfd",
+    "{prefix}-lto-dump",
+    "{prefix}-nm",
+    "{prefix}-objcopy",
+    "{prefix}-objdump",
+    "{prefix}-pkg-config",
+    "{prefix}-ranlib",
+    "{prefix}-readelf",
+    "{prefix}-size",
+    "{prefix}-strings",
+    "{prefix}-strip",
+    "{prefix}-windmc",
+    "{prefix}-windres",
 ]
 
-make(
-    name = "cc",
+[make(
+    name = "cc_{target}".format(target = target),
     args = [
-        "MXE_TARGETS='x86_64-w64-mingw32.shared'",
+        "MXE_TARGETS='{prefix}'".format(prefix = prefix),
     ],
     lib_source = ":all_srcs",
-    out_binaries = binaries,
+    out_binaries = [b.format(prefix = prefix) for b in binaries],
     tags = [
         "no-sandbox",
         "requires-network",
     ],
     targets = ["cc"],
-)
+) for target, prefix in TARGETS.items()]
 
-filegroup(
-    name = "gen_dir",
-    srcs = [":cc"],
+[filegroup(
+    name = "gen_dir_{target}".format(target = target),
+    srcs = [":cc_{target}".format(target = target)],
     output_group = "gen_dir",
-)
+) for target, _ in TARGETS.items()]
 
-pkg_tar(
-    name = "mxe-binaries",
-    srcs = [":gen_dir"],
+[pkg_tar(
+    name = "mxe-binaries-{target}".format(target = target),
+    srcs = [":gen_dir_{target}".format(target = target)],
     extension = "tar.xz",
     package_dir = "mxe",
-    strip_prefix = "external/mxe_src/copy_cc/cc",
-)
+    strip_prefix = "external/mxe_src/copy_cc_{target}/cc_{target}".format(target = target),
+) for target, _ in TARGETS.items()]

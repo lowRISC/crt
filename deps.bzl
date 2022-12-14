@@ -4,7 +4,7 @@
 
 load("//third_party/bazel:deps.bzl", "bazel_deps")
 
-def crt_deps(windows_disk_image=None):
+def crt_deps(windows_disk_image = None):
     bazel_deps()
     if windows_disk_image:
         native.bind(

@@ -10,7 +10,8 @@ release(
     name = "release",
     artifacts = {
         "@cc65_src//:cc65-binaries": "cc65 compiler",
-        "@mxe_src//:mxe-binaries": "MXE mingw64 compiler",
+        "@mxe_src//:mxe-binaries-win32": "MXE Win32 compiler",
+        "@mxe_src//:mxe-binaries-win64": "MXE Win64 compiler",
         "@qemu_src//:qemu-binaries": "QEMU system emulator",
     },
     env = {
@@ -23,7 +24,10 @@ release(
         SHA256=${DIGEST[cc65-binaries.tar.xz]} envsubst \
                 <toolchains/cc65/repository.bzl.template \
                 >toolchains/cc65/repository.bzl
-        SHA256=${DIGEST[mxe-binaries.tar.xz]} envsubst \
+        SHA256=${DIGEST[mxe-binaries-win32.tar.xz]} envsubst \
+                <toolchains/gcc_mxe_mingw32/repository.bzl.template \
+                >toolchains/gcc_mxe_mingw32/repository.bzl
+        SHA256=${DIGEST[mxe-binaries-win64.tar.xz]} envsubst \
                 <toolchains/gcc_mxe_mingw64/repository.bzl.template \
                 >toolchains/gcc_mxe_mingw64/repository.bzl
         SHA256=${DIGEST[qemu-binaries.tar.xz]} envsubst \
