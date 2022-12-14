@@ -18,8 +18,8 @@ def qemu_src_repos():
 def qemu_binary_repos():
     http_archive(
         name = "qemu",
-        url = "https://github.com/lowRISC/crt/releases/download/v0.3.6/qemu-binaries.tar.xz",
-        sha256 = "4f0af05c5ca356c9463f38c9218be7a452452725248e1731e58a332e12cb7a4b",
+        url = "https://github.com/lowRISC/crt/releases/download/v0.3.7-pre/qemu-binaries.tar.xz",
+        sha256 = "664525cca6fc5b29b7bcc0af435b7a844b7769852b1ce40e25c9e4c516dd1511",
         build_file = Label("//third_party/qemu:BUILD.qemu.bazel"),
         strip_prefix = "qemu",
     )
