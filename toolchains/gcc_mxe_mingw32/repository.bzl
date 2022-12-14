@@ -7,8 +7,7 @@ load("@crt//config:repo.bzl", "compiler_repository")
 def gcc_mxe_mingw32_repos():
     compiler_repository(
         name = "gcc_mxe_mingw32_files",
-        archive = Label("//prebuilt:mxe-binaries-win32.tar.xz"),
-        #url = "https://github.com/lowRISC/crt/releases/download/v0.3.6/mxe-binaries-win32.tar.xz",
-        #sha256 = "98a352e7909a154af54f2581fc117e5fe3f4837c6ab20d18fe697bc007dc6017",
+        url = "https://github.com/lowRISC/crt/releases/download/v0.3.7-pre/mxe-binaries-win32.tar.xz",
+        sha256 = "597e9b082b2fc1f4b34a5f0bd1f0422951b774d727e614b92c636d465d247aa5",
         strip_prefix = "mxe",
     )

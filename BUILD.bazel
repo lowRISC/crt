@@ -37,6 +37,7 @@ release(
         # Update modified hashes.
         git commit -m "Update tags and hashes for ${RELEASE_TAG}" \
                 toolchains/cc65/repository.bzl \
+                toolchains/gcc_mxe_mingw32/repository.bzl \
                 toolchains/gcc_mxe_mingw64/repository.bzl \
                 third_party/qemu/repos.bzl
 
