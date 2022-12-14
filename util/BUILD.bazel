@@ -9,4 +9,5 @@ load("@rules_python//python:defs.bzl", "py_binary")
 py_binary(
     name = "pkg_win",
     srcs = ["pkg_win.py"],
+    srcs_version = "PY3",
 )

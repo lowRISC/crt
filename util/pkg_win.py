@@ -179,7 +179,7 @@ class PkgWin(object):
                 if arch != self.target:
                     logging.warning(
                         'Unexpected target for %r: %s (expected %s)', f,
-                        target, self.target)
+                        arch, self.target)
                 self.detect_dlls(args, f, dlls)
 
         if self.missing_dlls and not args.ignore_missing_dlls:
