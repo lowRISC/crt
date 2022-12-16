@@ -14,12 +14,12 @@ platform(
     ],
 )
 
-# FIXME: this is an exact copy of //platforms/x86_64:qemu_windows.  This
-# should probably instead reference a disk image that can be an old
-# version of 32-bit windows.
+# This is a near copy of //platforms/x86_64:qemu_windows.
+# This configuration runs the `i386` version of qemu with a 32-bit
+# version of windows.
 exec_config(
     name = "qemu_windows",
-    data = ["//external:windows_disk_image"],
+    data = ["//external:win32_disk_image"],
     params = [
         "-M pc",
         "-m {memory}",
@@ -37,9 +37,9 @@ exec_config(
         "-device pci-serial,chardev=com3",
     ],
     preparation = "windows",
-    program = "@qemu//:qemu-system-x86_64",
+    program = "@qemu//:qemu-system-i386",
     substitutions = {
-        "disk_image": "$(location //external:windows_disk_image)",
+        "disk_image": "$(location //external:win32_disk_image)",
         # You should only use quick_kill if you're using a disk_image_snapshot
         # for the disk image.  Snapshots are discarded on every run, so an
         # improper shutdown doesn't matter.

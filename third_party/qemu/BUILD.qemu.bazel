@@ -15,6 +15,14 @@ filegroup(
 )
 
 filegroup(
+    name = "qemu-system-i386",
+    srcs = ["bin/qemu-system-i386"],
+    data = glob(["share/qemu/**"]) + [
+        "bin/qemu-img",
+    ],
+)
+
+filegroup(
     name = "qemu-system-arm",
     srcs = ["bin/qemu-system-arm"],
 )

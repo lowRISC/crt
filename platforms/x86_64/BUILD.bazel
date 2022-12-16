@@ -16,7 +16,7 @@ platform(
 
 exec_config(
     name = "qemu_windows",
-    data = ["//external:windows_disk_image"],
+    data = ["//external:win64_disk_image"],
     params = [
         "-M pc",
         "-m {memory}",
@@ -36,7 +36,7 @@ exec_config(
     preparation = "windows",
     program = "@qemu//:qemu-system-x86_64",
     substitutions = {
-        "disk_image": "$(location //external:windows_disk_image)",
+        "disk_image": "$(location //external:win64_disk_image)",
         # You should only use quick_kill if you're using a disk_image_snapshot
         # for the disk image.  Snapshots are discarded on every run, so an
         # improper shutdown doesn't matter.
