@@ -4,7 +4,7 @@
 
 package(default_visibility = ["//visibility:public"])
 
-load("//third_party/github:rules.bzl", "release")
+load("@lowrisc_bazel_release//release:release.bzl", "release")
 
 release(
     name = "release",
