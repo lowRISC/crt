@@ -9,8 +9,11 @@ crt_repos()
 load("//:deps.bzl", "crt_deps")
 crt_deps()
 
-load("//third_party/github:repos.bzl", "github_tools_repos")
-github_tools_repos()
+load("//third_party/lowrisc:repos.bzl", "lowrisc_repos")
+lowrisc_repos()
+load("//third_party/lowrisc:deps.bzl", "lowrisc_deps")
+lowrisc_deps()
+
 load("//third_party/qemu:repos.bzl", "qemu_src_repos")
 qemu_src_repos()
 load("//third_party/mxe:repos.bzl", "mxe_src_repos")
