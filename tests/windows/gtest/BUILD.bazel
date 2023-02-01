@@ -1,0 +1,46 @@
+load("@crt//rules:run.bzl", "platform_test")
+
+cc_test(
+    name = "trivial_passing_test",
+    srcs = ["trivial_passing_test.cc"],
+    deps = [
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "trivial_failing_test",
+    srcs = ["trivial_failing_test.cc"],
+    tags = [
+        "manual",
+    ],
+    deps = [
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+platform_test(
+    name = "windows_passing_test",
+    binary = ":trivial_passing_test",
+    exec_config = "@crt//platforms/x86_64:qemu_windows",
+    platform = "@crt//platforms/x86_64:win64",
+    # When running a windows test _and_ you want to see the qemu GUI window,
+    # you need to tag as `local` to disable the test sandbox.
+    tags = [
+        "local",
+        "manual",
+    ],
+)
+
+platform_test(
+    name = "windows_failing_test",
+    binary = ":trivial_failing_test",
+    exec_config = "@crt//platforms/x86_64:qemu_windows",
+    platform = "@crt//platforms/x86_64:win64",
+    # When running a windows test _and_ you want to see the qemu GUI window,
+    # you need to tag as `local` to disable the test sandbox.
+    tags = [
+        "local",
+        "manual",
+    ],
+)

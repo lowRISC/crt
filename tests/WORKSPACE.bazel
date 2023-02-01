@@ -1,0 +1,27 @@
+workspace(name = "crt_tests")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+local_repository(
+    name = "crt",
+    path = "..",
+)
+load("@crt//:repos.bzl", "crt_repos")
+crt_repos()
+load("@crt//:deps.bzl", "crt_deps")
+crt_deps()
+
+load("@crt//config:registration.bzl", "crt_register_toolchains")
+crt_register_toolchains(
+    arm = True,
+    riscv32 = True,
+    win32 = True,
+    win64 = True,
+)
+
+# Googletest https://google.github.io/googletest/
+http_archive(
+    name = "com_google_googletest",
+    urls = ["https://github.com/google/googletest/archive/refs/tags/v1.13.0.tar.gz"],
+    strip_prefix = "googletest-1.13.0",
+    sha256 = "ad7fdba11ea011c1d925b3289cf4af2c66a352e18d4c7264392fead75e919363",
+)

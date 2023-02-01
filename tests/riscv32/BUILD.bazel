@@ -1,0 +1,31 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@crt//rules:run.bzl", "platform_test")
+
+cc_binary(
+    name = "sieve",
+    srcs = [
+        # buildifier: do not sort
+        "start.S",
+        "notmain.c",
+    ],
+    linkopts = [
+        "-T $(location memmap.ld)",
+        "-nostdlib",
+    ],
+    target_compatible_with = [
+        "@platforms//cpu:riscv32",
+    ],
+    deps = [
+        "memmap.ld",
+        "//lib:sieve",
+    ],
+)
+
+platform_test(
+    name = "riscv32_test",
+    binary = ":sieve",
+    exec_config = "@crt//platforms/riscv32:qemu",
+    platform = "@crt//platforms/riscv32:opentitan",
+)

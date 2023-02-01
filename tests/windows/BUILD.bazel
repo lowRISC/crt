@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@crt//rules:transition.bzl", "platform_target")
+load("@crt//rules:run.bzl", "platform_runner")
+
+cc_binary(
+    name = "sieve",
+    srcs = ["sieve.c"],
+    deps = [
+        "//lib:sieve",
+    ],
+)
+
+platform_target(
+    name = "win64",
+    platform = "@crt//platforms/x86_64:win64",
+    target = ":sieve",
+)
+
+platform_target(
+    name = "win32",
+    platform = "@crt//platforms/x86_32:win32",
+    target = ":sieve",
+)

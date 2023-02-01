@@ -1,0 +1,37 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@crt//rules:run.bzl", "platform_test")
+
+cc_binary(
+    name = "sieve",
+    srcs = [
+        # buildifier: do not sort
+        "vectors.S",
+        "notmain.c",
+    ],
+    copts = [
+        "-nostdlib",
+        "-ffreestanding",
+    ],
+    linkopts = [
+        "-T $(location memmap.ld)",
+        "-nostartfiles",
+        "-nostdlib",
+        "-lgcc",
+    ],
+    target_compatible_with = [
+        "@platforms//cpu:armv6-m",
+    ],
+    deps = [
+        "memmap.ld",
+        "//lib:sieve",
+    ],
+)
+
+platform_test(
+    name = "arm_test",
+    binary = ":sieve",
+    exec_config = "@crt//platforms/arm:qemu",
+    platform = "@crt//platforms/arm:cortex_m",
+)
