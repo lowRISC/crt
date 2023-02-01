@@ -9,7 +9,7 @@ def lowrisc_repos():
     maybe(
         http_archive,
         name = "lowrisc_bazel_release",
-        sha256 = "1af1e4a3ab9246b4925adbfc3f00c0eba78a68c331a5c16d1a6602374a18fb59",
-        strip_prefix = "bazel-release-0.0.2",
-        url = "https://github.com/lowRISC/bazel-release/archive/refs/tags/v0.0.2.tar.gz",
+        sha256 = "c7b0cbdec0a1081a0b0a52eb1ebd942e7eaa218408008661fdb6e8ec3b441a4a",
+        strip_prefix = "bazel-release-0.0.3",
+        url = "https://github.com/lowRISC/bazel-release/archive/refs/tags/v0.0.3.tar.gz",
     )
