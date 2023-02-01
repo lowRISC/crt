@@ -1,12 +1,28 @@
 workspace(name = "crt_tests")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# If we've just performed a build of toolchain and emulator binaries, we'll
+# want to test those locally first before performing a release.  A `sed`
+# operation will remove the "local test" comments below and thus allow the
+# listed files to be substituted into the workspace and tested.
+#
+# This is used only during the release testing workflow.  Under normal
+# conditions, we want to use the binaries that are encoded into the
+# upstream CRT configuration.
+TEST_PARAMS = {
+    #local_test: "qemu_binaries": "@crt//prebuilt:qemu-binaries.tar.xz",
+    #local_test: "win32_binaries": "@crt//prebuilt:mxe-binaries-win32.tar.xz",
+    #local_test: "win64_binaries": "@crt//prebuilt:mxe-binaries-win64.tar.xz",
+}
+
 local_repository(
     name = "crt",
     path = "..",
 )
 load("@crt//:repos.bzl", "crt_repos")
-crt_repos()
+crt_repos(
+    qemu_binaries = TEST_PARAMS.get("qemu_binaries", None),
+)
 load("@crt//:deps.bzl", "crt_deps")
 crt_deps()
 
@@ -14,8 +30,8 @@ load("@crt//config:registration.bzl", "crt_register_toolchains")
 crt_register_toolchains(
     arm = True,
     riscv32 = True,
-    win32 = True,
-    win64 = True,
+    win32 = TEST_PARAMS.get("win32_binaries", True),
+    win64 = TEST_PARAMS.get("win64_binaries", True),
 )
 
 # Googletest https://google.github.io/googletest/
