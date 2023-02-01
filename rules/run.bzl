@@ -15,7 +15,7 @@ echo %ERRORLEVEL% >COM3
 # FIXME: deal with ctx.attr.binary and exec_config.program better.
 # Make sure throw errors if they're multiple files.
 def _platform_runner_impl(ctx):
-    cc_toolchain = find_cc_toolchain(ctx).cc
+    cc_toolchain = find_cc_toolchain(ctx)
     exec_config = ctx.attr.exec_config[ExecConfigInfo]
     program = exec_config.program[DefaultInfo].files.to_list()[0]
     binary = ctx.attr.binary[DefaultInfo].files.to_list()[0]
