@@ -2,11 +2,12 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@crt//rules:repo.bzl", "http_archive_or_local")
 
-def qemu_src_repos():
-    http_archive(
+def qemu_src_repos(local = None):
+    http_archive_or_local(
         name = "qemu_src",
+        local = local,
         urls = [
             "https://download.qemu.org/qemu-7.0.0.tar.xz",
         ],
@@ -15,9 +16,10 @@ def qemu_src_repos():
         strip_prefix = "qemu-7.0.0",
     )
 
-def qemu_binary_repos():
-    http_archive(
+def qemu_binary_repos(local = None):
+    http_archive_or_local(
         name = "qemu",
+        local = local,
         url = "${BASE_URL}/releases/download/${RELEASE_TAG}/qemu-binaries.tar.xz",
         sha256 = "${SHA256}",
         build_file = Label("//third_party/qemu:BUILD.qemu.bazel"),
