@@ -28,20 +28,6 @@ C_ALL_COMPILE_ACTIONS = [
     ACTION_NAMES.c_compile,
 ]
 
-CPP_COMPILE_NO_ASM_ACTIONS = [
-    ACTION_NAMES.linkstamp_compile,
-    ACTION_NAMES.cpp_compile,
-    ACTION_NAMES.cpp_header_parsing,
-    ACTION_NAMES.cpp_module_compile,
-    ACTION_NAMES.cpp_module_codegen,
-    ACTION_NAMES.lto_backend,
-    ACTION_NAMES.clif_match,
-]
-
-C_COMPILE_NO_ASM_ACTIONS = [
-    ACTION_NAMES.c_compile,
-]
-
 LD_ALL_ACTIONS = [
     ACTION_NAMES.cpp_link_executable,
     ACTION_NAMES.cpp_link_dynamic_library,

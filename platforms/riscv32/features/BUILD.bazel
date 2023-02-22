@@ -5,9 +5,7 @@
 load(
     "//config:features.bzl",
     "CPP_ALL_COMPILE_ACTIONS",
-    "CPP_COMPILE_NO_ASM_ACTIONS",
     "C_ALL_COMPILE_ACTIONS",
-    "C_COMPILE_NO_ASM_ACTIONS",
     "LD_ALL_ACTIONS",
     "feature",
     "feature_set",
@@ -58,10 +56,10 @@ feature(
 
 feature(
     name = "guards",
-    enabled = True,
+    enabled = False,
     flag_sets = [
         flag_set(
-            actions = C_COMPILE_NO_ASM_ACTIONS + C_COMPILE_NO_ASM_ACTIONS,
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
             flag_groups = [
                 flag_group(
                     flags = [
