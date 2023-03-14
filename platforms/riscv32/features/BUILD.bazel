@@ -46,6 +46,7 @@ feature(
                     flags = [
                         "-Os",
                         "-g",
+                        "-gdwarf-4",
                     ],
                 ),
             ],
