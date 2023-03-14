@@ -8,7 +8,7 @@ load("//platforms/riscv32:devices.bzl", "DEVICES")
 package(default_visibility = ["//visibility:public"])
 
 SYSTEM_INCLUDE_PATHS = [
-    "external/lowrisc_rv32imcb_files/lib/clang/13.0.1/include",
+    "external/lowrisc_rv32imcb_files/lib/clang/16/include",
     "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include",
     "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include/c++/10.2.0",
     "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include/c++/10.2.0/backward",
