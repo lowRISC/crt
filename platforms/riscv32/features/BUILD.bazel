@@ -119,7 +119,7 @@ feature(
 )
 
 feature_set(
-    name = "rv32imc",
+    name = "rv32imcb",
     base = [
         "//features/common",
         "//features/embedded",
@@ -133,9 +133,9 @@ feature_set(
 )
 
 feature_set(
-    name = "rv32imc-hardened",
+    name = "rv32imcb-hardened",
     base = [
-        ":rv32imc",
+        ":rv32imcb",
     ],
     feature = [
         ":guards",
