@@ -9,6 +9,7 @@ load(
     "LD_ALL_ACTIONS",
     "feature",
     "feature_set",
+    "feature_single_flag_c_cpp",
     "flag_group",
     "flag_set",
 )
@@ -41,37 +42,85 @@ feature(
     ],
 )
 
-feature(
+feature_single_flag_c_cpp(
     name = "all_warnings",
-    enabled = True,
-    flag_sets = [
-        flag_set(
-            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
-            flag_groups = [
-                flag_group(
-                    flags = [
-                        "-Wall",
-                        "-Wpedantic",
-                    ],
-                ),
-            ],
-        ),
-    ],
+    flag = "-Wall",
 )
 
-feature(
+feature_single_flag_c_cpp(
     name = "all_warnings_as_errors",
+    flag = "-Werror",
+)
+
+feature_single_flag_c_cpp(
+    name = "extra_warnings",
     enabled = False,
-    flag_sets = [
-        flag_set(
-            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
-            flag_groups = [
-                flag_group(
-                    flags = ["-Werror"],
-                ),
-            ],
-        ),
-    ],
+    flag = "-Wextra",
+)
+
+feature_single_flag_c_cpp(
+    name = "pedantic_warnings",
+    flag = "-Wpedantic",
+)
+
+feature_single_flag_c_cpp(
+    name = "clang_covered_switch_default_warnings",
+    enabled = False,
+    flag = "-Wno-covered-switch-default",
+)
+
+feature_single_flag_c_cpp(
+    name = "implicit_conversion_warnings",
+    enabled = False,
+    flag = "-Wconversion",
+)
+
+feature_single_flag_c_cpp(
+    name = "implicit_fallthrough_warnings",
+    enabled = False,
+    flag = "-Wimplicit-fallthrough",
+)
+
+feature_single_flag_c_cpp(
+    name = "invalid_pch_warnings",
+    enabled = False,
+    flag = "-Winvalid-pch",
+)
+
+feature_single_flag_c_cpp(
+    name = "strict_prototypes_warnings",
+    enabled = False,
+    flag = "-Wstrict-prototypes",
+)
+
+feature_single_flag_c_cpp(
+    name = "switch_default_warnings",
+    enabled = False,
+    flag = "-Wswitch-default",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_missing_field_initializers_warning",
+    enabled = False,
+    flag = "-Wno-missing-field-initializers",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_sign_compare_warning",
+    enabled = False,
+    flag = "-Wno-sign-compare",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_unused_function_warning",
+    enabled = False,
+    flag = "-Wno-error=unused-function",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_unused_parameter_warning",
+    enabled = False,
+    flag = "-Wno-unused-parameter",
 )
 
 feature(
@@ -230,6 +279,18 @@ feature_set(
         ":architecture",
         ":all_warnings",
         ":all_warnings_as_errors",
+        ":extra_warnings",
+        ":pedantic_warnings",
+        ":clang_covered_switch_default_warnings",
+        ":implicit_conversion_warnings",
+        ":implicit_fallthrough_warnings",
+        ":invalid_pch_warnings",
+        ":strict_prototypes_warnings",
+        ":switch_default_warnings",
+        ":no_missing_field_initializers_warning",
+        ":no_sign_compare_warning",
+        ":no_unused_function_warning",
+        ":no_unused_parameter_warning",
         ":reproducible",
         ":exceptions",
         ":symbol_garbage_collection",

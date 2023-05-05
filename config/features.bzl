@@ -169,6 +169,23 @@ feature = rule(
     provides = [FeatureInfo],
 )
 
+def feature_single_flag_c_cpp(name, flag, enabled = True):
+    """This macro produces a C/C++ feature() that enables a single flag."""
+    feature(
+        name = name,
+        enabled = enabled,
+        flag_sets = [
+            flag_set(
+                actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+                flag_groups = [
+                    flag_group(
+                        flags = [flag],
+                    ),
+                ],
+            ),
+        ],
+    )
+
 def _feature_set_impl(ctx):
     features = {}
     subst = {}
