@@ -80,13 +80,5 @@ crt_register_toolchains(
 
 ## Releasing CRT
 
-To perform a release of CRT:
-
-The release process assumes you have your git and
-[GitHub CLI](https://cli.github.com/) credentials in `$HOME/.git` and
-`$HOME/.config/gh` repsectively.
-
-1. Commit your changes.
-2. Create a tag locally, but don't push it to your remote.
-3. Run the `util/release_in_container.sh` script.  This script executes
-   `bazel run :release` inside of an ubuntu-20.04 container.
+To perform a release of CRT, run the [Create Release](https://github.com/lowRISC/crt/actions/workflows/create_release.yml) workflow.
+For the `release_tag` parameter, supply the tag name for the new release, e.g. "v0.4.2".
