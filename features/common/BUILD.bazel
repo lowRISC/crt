@@ -157,6 +157,21 @@ feature(
 )
 
 feature(
+    name = "use_lld",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = ["-fuse-ld=lld"],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
     name = "symbol_garbage_collection",
     enabled = True,
     flag_sets = [
@@ -293,6 +308,7 @@ feature_set(
         ":no_unused_parameter_warning",
         ":reproducible",
         ":exceptions",
+        ":use_lld",
         ":symbol_garbage_collection",
         ":dbg",
         ":fastbuild",
