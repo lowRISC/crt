@@ -8,8 +8,11 @@ load(
     __feature = "feature",
     __flag_group = "flag_group",
     __flag_set = "flag_set",
+    __with_feature_set = "with_feature_set",
 )
 load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "ACTION_NAMES")
+
+with_feature_set = __with_feature_set
 
 CPP_ALL_COMPILE_ACTIONS = [
     ACTION_NAMES.assemble,
@@ -68,6 +71,17 @@ def reify_flag_group(
         expand_if_equal,
     )
 
+def reify_with_features_set(
+        features,
+        not_features,
+        type_name):
+    if type_name != "with_feature_set":
+        fail("the argument to with_features must be an array of values created by with_feature_set")
+    return with_feature_set(
+        features,
+        not_features
+    )
+
 def reify_flag_set(
         actions = [],
         with_features = [],
@@ -75,7 +89,7 @@ def reify_flag_set(
         type_name = None):
     return __flag_set(
         actions,
-        with_features,  # TODO: fix this
+        with_features =[reify_with_features_set(**v) for v in with_features],
         flag_groups = [reify_flag_group(**v) for v in flag_groups],
     )
 
