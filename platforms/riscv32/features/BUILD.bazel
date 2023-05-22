@@ -11,6 +11,7 @@ load(
     "feature_set",
     "flag_group",
     "flag_set",
+    "with_feature_set",
 )
 
 package(default_visibility = ["//visibility:public"])
@@ -19,12 +20,37 @@ feature(
     name = "architecture",
     enabled = True,
     flag_sets = [
+        # This set of flag only activates if :rv32_bitmanip is enabled.
         flag_set(
+            with_features = [
+                with_feature_set(
+                    features = ['rv32_bitmanip'],
+                ),
+            ],
             actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
             flag_groups = [
                 flag_group(
                     flags = [
-                        "-march=ARCHITECTURE",
+                        "-march=ARCHITECTURE_WITH_BITMANIP",
+                        "-mabi=ABI",
+                        "-mcmodel=CMODEL",
+                        "-mENDIAN-endian",
+                    ],
+                ),
+            ],
+        ),
+        # This set of flag only activates if :rv32_bitmanip is NOT enabled.
+        flag_set(
+            with_features = [
+                with_feature_set(
+                    not_features = ['rv32_bitmanip'],
+                ),
+            ],
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-march=ARCHITECTURE_WITHOUT_BITMANIP",
                         "-mabi=ABI",
                         "-mcmodel=CMODEL",
                         "-mENDIAN-endian",
@@ -33,6 +59,11 @@ feature(
             ],
         ),
     ],
+)
+
+feature(
+    name = 'rv32_bitmanip',
+    enabled = True,
 )
 
 feature(
@@ -94,18 +125,6 @@ feature(
     enabled = True,
     flag_sets = [
         flag_set(
-            actions = CPP_ALL_COMPILE_ACTIONS,
-            flag_groups = [
-                flag_group(
-                    flags = [
-                        "-march=ARCHITECTURE",
-                        "-mabi=ABI",
-                        "-mcmodel=CMODEL",
-                    ],
-                ),
-            ],
-        ),
-        flag_set(
             actions = LD_ALL_ACTIONS,
             flag_groups = [
                 flag_group(
@@ -119,7 +138,7 @@ feature(
 )
 
 feature_set(
-    name = "rv32imc",
+    name = "rv32imcb",
     base = [
         "//features/common",
         "//features/embedded",
@@ -129,13 +148,14 @@ feature_set(
         ":all_warnings_as_errors",
         ":fastbuild",
         ":sys_spec",
+        ":rv32_bitmanip",
     ],
 )
 
 feature_set(
-    name = "rv32imc-hardened",
+    name = "rv32imcb-hardened",
     base = [
-        ":rv32imc",
+        ":rv32imcb",
     ],
     feature = [
         ":guards",

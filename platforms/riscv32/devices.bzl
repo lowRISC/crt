@@ -7,14 +7,15 @@ load("//config:device.bzl", "device_config")
 DEVICES = [
     device_config(
         name = "opentitan",
-        architecture = "rv32imc",
-        feature_set = "//platforms/riscv32/features:rv32imc-hardened",
+        architecture = "rv32imc_zba_zbb_zbc_zbs",
+        feature_set = "//platforms/riscv32/features:rv32imcb-hardened",
         constraints = [
             "@platforms//cpu:riscv32",
             "@platforms//os:none",
         ],
         substitutions = {
-            "ARCHITECTURE": "rv32imc",
+            "ARCHITECTURE_WITH_BITMANIP": "rv32imc_zba_zbb_zbc_zbs",
+            "ARCHITECTURE_WITHOUT_BITMANIP": "rv32imc",
             "ABI": "ilp32",
             "CMODEL": "medany",
             "ENDIAN": "little",
