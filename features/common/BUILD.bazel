@@ -54,7 +54,6 @@ feature_single_flag_c_cpp(
 
 feature_single_flag_c_cpp(
     name = "extra_warnings",
-    enabled = False,
     flag = "-Wextra",
 )
 
@@ -65,61 +64,51 @@ feature_single_flag_c_cpp(
 
 feature_single_flag_c_cpp(
     name = "clang_covered_switch_default_warnings",
-    enabled = False,
     flag = "-Wno-covered-switch-default",
 )
 
 feature_single_flag_c_cpp(
     name = "implicit_conversion_warnings",
-    enabled = False,
     flag = "-Wconversion",
 )
 
 feature_single_flag_c_cpp(
     name = "implicit_fallthrough_warnings",
-    enabled = False,
     flag = "-Wimplicit-fallthrough",
 )
 
 feature_single_flag_c_cpp(
     name = "invalid_pch_warnings",
-    enabled = False,
     flag = "-Winvalid-pch",
 )
 
 feature_single_flag_c_cpp(
     name = "strict_prototypes_warnings",
-    enabled = False,
     flag = "-Wstrict-prototypes",
 )
 
 feature_single_flag_c_cpp(
     name = "switch_default_warnings",
-    enabled = False,
     flag = "-Wswitch-default",
 )
 
 feature_single_flag_c_cpp(
     name = "no_missing_field_initializers_warning",
-    enabled = False,
     flag = "-Wno-missing-field-initializers",
 )
 
 feature_single_flag_c_cpp(
     name = "no_sign_compare_warning",
-    enabled = False,
     flag = "-Wno-sign-compare",
 )
 
 feature_single_flag_c_cpp(
     name = "no_unused_function_warning",
-    enabled = False,
     flag = "-Wno-error=unused-function",
 )
 
 feature_single_flag_c_cpp(
     name = "no_unused_parameter_warning",
-    enabled = False,
     flag = "-Wno-unused-parameter",
 )
 
