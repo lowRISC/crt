@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include "lib/sieve.h"
 
-int main() {
+int main(void) {
     sieve();
 
     for(int i=0; i<SIEVE_SZ; i++) {

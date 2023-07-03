@@ -10,7 +10,8 @@ void print_integer(int val) {
         int digit = val % 10;
         val = val / 10;
 
-        *--b = digit < 10 ? '0'+digit : 'A'+digit-10;
+        char digit_char = (char)digit;
+        *--b = digit_char < 10 ? '0'+digit_char: 'A'+digit_char-10;
     }
     while (b < buf+sizeof(buf)) {
         PUT32(UART0BASE+0x00, *b++);
