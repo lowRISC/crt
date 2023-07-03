@@ -90,19 +90,16 @@ feature(
 
 feature_single_flag_c_cpp(
     name = "clang_gnu_warnings",
-    enabled = False,
     flag = "-Wgnu",
 )
 
 feature_single_flag_c_cpp(
     name = "no_gnu_zero_variadic_macro_arguments_warning",
-    enabled = False,
     flag = "-Wno-gnu-zero-variadic-macro-arguments",
 )
 
 feature_single_flag_c_cpp(
     name = "no_gnu_statement_expression_from_macro_expansion",
-    enabled = False,
     flag = "-Wno-gnu-statement-expression-from-macro-expansion",
 )
 
