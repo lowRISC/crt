@@ -18,7 +18,7 @@ def _local_archive_impl(rctx):
 local_archive = repository_rule(
     implementation = _local_archive_impl,
     attrs = {
-        "path": attr.label(doc = "Local path to the archive", allow_single_file = True, mandatory = True),
+        "path": attr.string(doc = "Local path to the archive", mandatory = True),
         "strip_prefix": attr.string(doc = "Strip path prefixes when unarchiving"),
         "build_file": attr.label(doc = "A file to use as a BUILD file for this repository", allow_single_file = True),
         "build_file_content": attr.string(doc = "The content for the BUILD file for this repository"),
