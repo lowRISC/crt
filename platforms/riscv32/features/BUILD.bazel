@@ -87,6 +87,26 @@ feature(
 )
 
 feature(
+    name = "opt",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Os",
+                        "-g",
+                        "-gdwarf-4",
+                    ],
+                ),
+            ],
+        ),
+    ],
+    provides = ["compilation_mode"],
+)
+
+feature(
     name = "guards",
     enabled = False,
     flag_sets = [
@@ -147,6 +167,7 @@ feature_set(
         ":architecture",
         ":all_warnings_as_errors",
         ":fastbuild",
+        ":opt",
         ":sys_spec",
         ":rv32_bitmanip",
     ],
