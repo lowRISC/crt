@@ -6,8 +6,11 @@ def _local_archive_impl(rctx):
     if rctx.attr.build_file and rctx.attr.build_file_content:
         fail("Use only one of build_file and build_file_content.")
 
+    path = rctx.attr.path
+    if path.startswith("@") or path.startswith("//") or ":" in path:
+        path = Label(path)
     rctx.extract(
-        archive = rctx.attr.path,
+        archive = path,
         stripPrefix = rctx.attr.strip_prefix,
     )
     if rctx.attr.build_file:
