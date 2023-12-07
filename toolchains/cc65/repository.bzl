@@ -8,8 +8,8 @@ def cc65_repos(local = None):
     http_archive_or_local(
         name = "cc65_files",
         local = local,
-        url = "https://github.com/lowRISC/crt/releases/download/v0.4.8/cc65-binaries.tar.xz",
-        sha256 = "dc36cdc6e62141f389ae383766d8e283b82c762b73889d4346a05f7207119e4b",
+        url = "https://github.com/lowRISC/crt/releases/download/v0.4.9/cc65-binaries.tar.xz",
+        sha256 = "5b3e64d3102cd6ecdc7f4e62fc1a794715a5dfc5afeecae1f01538663aafb9e4",
         strip_prefix = "cc65",
         build_file = Label("//toolchains:BUILD.export_all.bazel"),
     )
