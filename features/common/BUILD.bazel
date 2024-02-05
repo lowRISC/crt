@@ -112,6 +112,11 @@ feature_single_flag_c_cpp(
     flag = "-Wno-unused-parameter",
 )
 
+feature_single_flag_c_cpp(
+    name = "type_limits_warning",
+    flag = "-Wtype-limits",
+)
+
 feature(
     name = "reproducible",
     enabled = True,
