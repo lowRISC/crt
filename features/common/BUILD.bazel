@@ -161,6 +161,23 @@ feature(
 )
 
 feature(
+    name = "lto",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = C_ALL_COMPILE_ACTIONS + CPP_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-flto"
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
     name = "symbol_garbage_collection",
     enabled = True,
     flag_sets = [
