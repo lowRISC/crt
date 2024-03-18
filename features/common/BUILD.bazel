@@ -320,6 +320,7 @@ feature_set(
         ":reproducible",
         ":exceptions",
         ":use_lld",
+        ":lto",
         ":symbol_garbage_collection",
         ":dbg",
         ":fastbuild",
