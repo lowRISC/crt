@@ -114,6 +114,26 @@ feature_single_flag_c_cpp(
 )
 
 feature_single_flag_c_cpp(
+    name = "unused_parameter_warning",
+    flag = "-Wunused-parameter",
+)
+
+feature_single_flag_c_cpp(
+    name = "unused_warning",
+    flag = "-Wunused",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_unused_parameter_error",
+    flag = "-Wno-error=unused-parameter",
+)
+
+feature_single_flag_c_cpp(
+    name = "no_unused_error",
+    flag = "-Wno-error=unused",
+)
+
+feature_single_flag_c_cpp(
     name = "type_limits_warning",
     flag = "-Wtype-limits",
 )
@@ -317,7 +337,10 @@ feature_set(
         ":no_missing_field_initializers_warning",
         ":no_sign_compare_warning",
         ":no_unused_function_warning",
-        ":no_unused_parameter_warning",
+        ":unused_parameter_warning",
+        ":unused_warning",
+        ":no_unused_parameter_error",
+        ":no_unused_error",
         ":reproducible",
         ":exceptions",
         ":use_lld",
