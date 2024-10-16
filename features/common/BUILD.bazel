@@ -84,6 +84,7 @@ feature_single_flag_c_cpp(
 
 feature_single_flag_c_cpp(
     name = "strict_prototypes_warnings",
+    c_only = True,
     flag = "-Wstrict-prototypes",
 )
 
@@ -174,7 +175,7 @@ feature(
             flag_groups = [
                 flag_group(
                     flags = [
-                        "-flto"
+                        "-flto",
                     ],
                 ),
             ],
