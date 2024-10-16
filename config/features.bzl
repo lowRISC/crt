@@ -79,7 +79,7 @@ def reify_with_features_set(
         fail("the argument to with_features must be an array of values created by with_feature_set")
     return with_feature_set(
         features,
-        not_features
+        not_features,
     )
 
 def reify_flag_set(
@@ -89,7 +89,7 @@ def reify_flag_set(
         type_name = None):
     return __flag_set(
         actions,
-        with_features =[reify_with_features_set(**v) for v in with_features],
+        with_features = [reify_with_features_set(**v) for v in with_features],
         flag_groups = [reify_flag_group(**v) for v in flag_groups],
     )
 
@@ -183,14 +183,14 @@ feature = rule(
     provides = [FeatureInfo],
 )
 
-def feature_single_flag_c_cpp(name, flag, enabled = True):
+def feature_single_flag_c_cpp(name, flag, c_only = False, enabled = True):
     """This macro produces a C/C++ feature() that enables a single flag."""
     feature(
         name = name,
         enabled = enabled,
         flag_sets = [
             flag_set(
-                actions = CPP_ALL_COMPILE_ACTIONS + C_ALL_COMPILE_ACTIONS,
+                actions = C_ALL_COMPILE_ACTIONS + ([] if c_only else CPP_ALL_COMPILE_ACTIONS),
                 flag_groups = [
                     flag_group(
                         flags = [flag],
