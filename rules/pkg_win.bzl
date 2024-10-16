@@ -20,7 +20,8 @@ def _pkg_win_impl(ctx):
     else:
         fail("Unknown platform:", ctx.attr.platform)
 
-    cc_toolchain = find_cc_toolchain(ctx)
+    toolchain = find_cc_toolchain(ctx)
+    cc_toolchain = getattr(toolchain, "cc", toolchain)
     mxe = _get_toolchain_dir(cc_toolchain)
 
     args = [
