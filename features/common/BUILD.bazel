@@ -204,6 +204,25 @@ feature(
 )
 
 feature(
+    name = "minsize",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = C_ALL_COMPILE_ACTIONS + CPP_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Oz",
+                        # Inline slightly more which is actually smaller.
+                        "-mllvm", "--inline-threshold=10",
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
     name = "symbol_garbage_collection",
     enabled = True,
     flag_sets = [
@@ -345,6 +364,7 @@ feature_set(
         ":exceptions",
         ":use_lld",
         ":lto",
+        ":minsize",
         ":symbol_garbage_collection",
         ":dbg",
         ":fastbuild",
