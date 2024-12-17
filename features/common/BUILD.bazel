@@ -208,13 +208,11 @@ feature(
     enabled = False,
     flag_sets = [
         flag_set(
-            actions = C_ALL_COMPILE_ACTIONS + CPP_ALL_COMPILE_ACTIONS + LD_ALL_ACTIONS,
+            actions = C_ALL_COMPILE_ACTIONS + CPP_ALL_COMPILE_ACTIONS,
             flag_groups = [
                 flag_group(
                     flags = [
                         "-Oz",
-                        # Inline slightly more which is actually smaller.
-                        "-mllvm", "--inline-threshold=10",
                     ],
                 ),
             ],
@@ -364,11 +362,15 @@ feature_set(
         ":exceptions",
         ":use_lld",
         ":lto",
-        ":minsize",
         ":symbol_garbage_collection",
         ":dbg",
         ":fastbuild",
         ":opt",
+
+        # To overwrite the level to minsize with feature flags, it needs to be
+        # listed after the compilation modes.
+        ":minsize",
+
         ":output_format",
         ":misc",
         ":coverage",

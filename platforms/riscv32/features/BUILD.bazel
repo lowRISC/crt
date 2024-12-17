@@ -107,6 +107,36 @@ feature(
 )
 
 feature(
+    name = "minsize",
+    enabled = False,
+    flag_sets = [
+        flag_set(
+            actions = C_ALL_COMPILE_ACTIONS + CPP_ALL_COMPILE_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        "-Oz",
+                        # Inline slightly more which is actually smaller.
+                        "-mllvm", "--inline-threshold=10",
+                    ],
+                ),
+            ],
+        ),
+        flag_set(
+            actions = LD_ALL_ACTIONS,
+            flag_groups = [
+                flag_group(
+                    flags = [
+                        # Inline slightly more which is actually smaller.
+                        "-Wl,-mllvm", "-Wl,--inline-threshold=10",
+                    ],
+                ),
+            ],
+        ),
+    ],
+)
+
+feature(
     name = "guards",
     enabled = False,
     flag_sets = [
@@ -168,6 +198,7 @@ feature_set(
         ":all_warnings_as_errors",
         ":fastbuild",
         ":opt",
+        ":minsize",
         ":sys_spec",
         ":rv32_bitmanip",
     ],
