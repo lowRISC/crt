@@ -8,42 +8,51 @@ load("//platforms/riscv32:devices.bzl", "DEVICES")
 package(default_visibility = ["//visibility:public"])
 
 SYSTEM_INCLUDE_PATHS = [
-    "external/lowrisc_rv32imcb_files/lib/clang/16/include",
-    "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include",
-    "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include/c++/10.2.0",
-    "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include/c++/10.2.0/backward",
-    "external/lowrisc_rv32imcb_files/riscv32-unknown-elf/include/c++/10.2.0/riscv32-unknown-elf",
+    "external/lowrisc_rv32imcb_{}_files/lib/clang/16/include",
+    "external/lowrisc_rv32imcb_{}_files/riscv32-unknown-elf/include",
+    "external/lowrisc_rv32imcb_{}_files/riscv32-unknown-elf/include/c++/10.2.0",
+    "external/lowrisc_rv32imcb_{}_files/riscv32-unknown-elf/include/c++/10.2.0/backward",
+    "external/lowrisc_rv32imcb_{}_files/riscv32-unknown-elf/include/c++/10.2.0/riscv32-unknown-elf",
 ]
 
-filegroup(
-    name = "compiler_components",
+HOST_ARCHS = [
+    "x86_64",
+    "aarch64",
+]
+
+[filegroup(
+    name = "compiler_components" + host_arch,
     srcs = [
         "//toolchains/lowrisc_rv32imcb/wrappers:all",
-        "@lowrisc_rv32imcb_files//:all",
+        "@lowrisc_rv32imcb_{}_files//:all".format(host_arch),
     ],
-)
+) for host_arch in HOST_ARCHS]
 
-[setup(
-    name = device.name,
-    architecture = device.architecture,
-    artifact_naming = device.artifact_naming,
-    compiler_components = ":compiler_components",
-    constraints = device.constraints,
-    feature_set = device.feature_set,
-    include_directories = SYSTEM_INCLUDE_PATHS,
-    params = {
-        "compiler": "clang",
-    },
-    substitutions = device.substitutions,
-    tools = {
-        "ar": "wrappers/ar",
-        "cpp": "wrappers/cpp",
-        "gcc": "wrappers/clang",
-        "gcov": "wrappers/gcov",
-        "ld": "wrappers/ld",
-        "nm": "wrappers/nm",
-        "objcopy": "wrappers/objcopy",
-        "objdump": "wrappers/objdump",
-        "strip": "wrappers/strip",
-    },
-) for device in DEVICES]
+[
+    [setup(
+        name = "{}_{}".format(device.name, host_arch),
+        architecture = device.architecture,
+        artifact_naming = device.artifact_naming,
+        compiler_components = ":compiler_components" + host_arch,
+        constraints = device.constraints,
+        feature_set = device.feature_set,
+        include_directories = [path.format(host_arch) for path in SYSTEM_INCLUDE_PATHS],
+        params = {
+            "compiler": "clang",
+            "host_arch": host_arch,
+        },
+        substitutions = device.substitutions,
+        tools = {
+            "ar": "wrappers/ar",
+            "cpp": "wrappers/cpp",
+            "gcc": "wrappers/clang",
+            "gcov": "wrappers/gcov",
+            "ld": "wrappers/ld",
+            "nm": "wrappers/nm",
+            "objcopy": "wrappers/objcopy",
+            "objdump": "wrappers/objdump",
+            "strip": "wrappers/strip",
+        },
+    ) for device in DEVICES]
+    for host_arch in HOST_ARCHS
+]

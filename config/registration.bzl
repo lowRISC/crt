@@ -37,7 +37,8 @@ def crt_register_toolchains(
         native.register_toolchains("@crt//toolchains/cc65:all")
 
     if riscv32:
-        lowrisc_rv32imcb_repos(local = _maybe_archive(riscv32))
+        lowrisc_rv32imcb_repos(local = _maybe_archive(riscv32), host_arch = "x86_64")
+        lowrisc_rv32imcb_repos(local = _maybe_archive(riscv32), host_arch = "aarch64")
         native.register_execution_platforms("@crt//platforms/riscv32:all")
         native.register_toolchains("@crt//toolchains/lowrisc_rv32imcb:all")
 
