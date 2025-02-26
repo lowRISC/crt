@@ -111,6 +111,8 @@ def setup(
         "[SYSTEM_INCLUDES]": listify_flags(isystem, include_directories),
     }
     subst.update(substitutions)
+    if "host_arch" not in params:
+        params["host_arch"] = "x86_64"
 
     toolchain_config(
         name = name + "_config",
@@ -141,7 +143,7 @@ def setup(
     native.toolchain(
         name = "cc_toolchain_" + name,
         exec_compatible_with = [
-            "@platforms//cpu:x86_64",
+            "@platforms//cpu:" + params["host_arch"],
         ],
         target_compatible_with = constraints,
         toolchain = ":" + name,
