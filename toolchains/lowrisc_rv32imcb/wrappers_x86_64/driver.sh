@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 PROG=${0##*/}
-TOOLCHAIN="lowrisc_rv32imcb_$(uname -m)_files"
+TOOLCHAIN="lowrisc_rv32imcb_x86_64_files"
 PREFIX="riscv32-unknown-elf"
 
 ARGS=()
