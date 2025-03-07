@@ -23,7 +23,7 @@ HOST_ARCHS = [
 [filegroup(
     name = "compiler_components" + host_arch,
     srcs = [
-        "//toolchains/lowrisc_rv32imcb/wrappers:all",
+        "//toolchains/lowrisc_rv32imcb/wrappers_{}:all".format(host_arch),
         "@lowrisc_rv32imcb_{}_files//:all".format(host_arch),
     ],
 ) for host_arch in HOST_ARCHS]
@@ -43,15 +43,15 @@ HOST_ARCHS = [
         },
         substitutions = device.substitutions,
         tools = {
-            "ar": "wrappers/ar",
-            "cpp": "wrappers/cpp",
-            "gcc": "wrappers/clang",
-            "gcov": "wrappers/gcov",
-            "ld": "wrappers/ld",
-            "nm": "wrappers/nm",
-            "objcopy": "wrappers/objcopy",
-            "objdump": "wrappers/objdump",
-            "strip": "wrappers/strip",
+            "ar": "wrappers_{}/ar".format(host_arch),
+            "cpp": "wrappers_{}/cpp".format(host_arch),
+            "gcc": "wrappers_{}/clang".format(host_arch),
+            "gcov": "wrappers_{}/gcov".format(host_arch),
+            "ld": "wrappers_{}/ld".format(host_arch),
+            "nm": "wrappers_{}/nm".format(host_arch),
+            "objcopy": "wrappers_{}/objcopy".format(host_arch),
+            "objdump": "wrappers_{}/objdump".format(host_arch),
+            "strip": "wrappers_{}/strip",
         },
     ) for device in DEVICES]
     for host_arch in HOST_ARCHS
