@@ -8,8 +8,8 @@ def gcc_mxe_mingw32_repos(local = None):
     http_archive_or_local(
         name = "gcc_mxe_mingw32_files",
         local = local,
-        url = "https://github.com/lowRISC/crt/releases/download/v0.4.17/mxe-binaries-win32.tar.xz",
-        sha256 = "6a00b12b3e869867c86f1e0d22d0bdedb713b8098d4e267f91618a04648028ac",
+        url = "https://github.com/lowRISC/crt/releases/download/v0.4.18/mxe-binaries-win32.tar.xz",
+        sha256 = "22f4ac93dbda696879da7918da319ba877ee9d25daf05964c76af5181d4a5ed4",
         strip_prefix = "mxe",
         build_file = Label("//toolchains:BUILD.export_all.bazel"),
     )
